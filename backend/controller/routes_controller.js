@@ -26,6 +26,41 @@ async function shortenTheUrl(req,res){
 }
 
 
-module.exports={
-    shortenTheUrl,
+
+async function redirectToRealUrl(req,res){
+    const id = req.params.id;
+
+    if (!req.params.id)
+      return res.status(404).json({ err: "no link provided" });
+
+    try{
+        const data= await model.findOneAndUpdate(
+            {shortUrl:id},
+            {$push: {
+                viewed:Date.now()
+            }}
+        )
+
+        if(!data)
+            return res.status(404).json({err:"no such link found"})
+
+        res.redirect(data.url);
+
+        return res.status(200).json(data)
+    
+    }
+    catch(err){
+        return res.status(400).json({error:"Something went wrong while finding ==> ",err})
+    }
+
 }
+
+
+
+
+
+
+module.exports = {
+  shortenTheUrl,
+  redirectToRealUrl,
+};
