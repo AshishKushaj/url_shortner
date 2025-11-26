@@ -2,7 +2,6 @@ const mg= require('mongoose')
 
 const connectDB= async ()=>{
     try{
-        console.log(process.env.DB)
         await mg.connect(process.env.DB)
         console.log("db connected")
     }
