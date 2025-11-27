@@ -93,7 +93,6 @@ export default function DashboardPage() {
 
     return (
         <Layout>
-            
             <section className="card">
                 <h2>Add link</h2>
                 <AddLinkForm onSubmit={handleAdd} />
@@ -109,6 +108,7 @@ export default function DashboardPage() {
                         onChange={(e) => setSearch(e.target.value)}
                     />
                 </div>
+
 
                 {loading && <p className="status">Loading...</p>}
                 {error && <p className="status error">{error}</p>}
